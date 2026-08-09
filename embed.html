@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AEDash Software Matcher</title>
+<style>
+html,body{margin:0;padding:0;background:transparent;overflow-x:hidden}
+#frame{width:100%;height:1150px;border:0;display:block;background:transparent}
+</style>
+</head>
+<body>
+<iframe id="frame" src="./index.html" title="AEDash Accounting Software Matcher"></iframe>
+<script>
+const frame=document.getElementById('frame');
+frame.addEventListener('load',()=>{
+  try{
+    const doc=frame.contentDocument||frame.contentWindow.document;
+    const header=doc.querySelector('header');
+    const footer=doc.querySelector('footer');
+    if(header) header.style.display='none';
+    if(footer) footer.style.display='none';
+    const wrap=doc.querySelector('.wrap');
+    if(wrap){wrap.style.paddingTop='0';wrap.style.maxWidth='100%';}
+    doc.body.style.background='transparent';
+
+    const resize=()=>{
+      try{
+        const h=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight);
+        frame.style.height=(h+20)+'px';
+      }catch(e){}
+    };
+    resize();
+    const observer=new MutationObserver(resize);
+    observer.observe(doc.body,{childList:true,subtree:true,attributes:true});
+    setInterval(resize,1000);
+  }catch(e){}
+});
+</script>
+</body>
+</html>
